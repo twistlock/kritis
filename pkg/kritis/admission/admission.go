@@ -165,6 +165,11 @@ func ReviewHandler(w http.ResponseWriter, r *http.Request, config *Config) {
 		return
 	}
 
+	if ar.Request == nil {
+		http.Error(w, "admission request is missing", http.StatusBadRequest)
+		return
+	}
+
 	admitResponse := &v1beta1.AdmissionReview{
 		Response: &v1beta1.AdmissionResponse{
 			UID:     ar.Request.UID,
